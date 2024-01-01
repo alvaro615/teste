@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Entrega de Produtos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #delivery-form {
+            max-width: 400px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="delivery-form">
+        <h1>Cadastro de Entrega</h1>
+        <form id="orderForm">
+            <label for="productName">Nome do Produto:</label>
+            <input type="text" id="productName" name="productName" required>
+
+            <label for="customerName">Nome do Cliente:</label>
+            <input type="text" id="customerName" name="customerName" required>
+
+            <input type="submit" value="Enviar Pedido">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const orderForm = document.getElementById("orderForm");
+
+            orderForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const productName = document.getElementById("productName").value;
+                const customerName = document.getElementById("customerName").value;
+
+                // Simulando o envio do pedido para o servidor (pode ser substituído por uma chamada AJAX)
+                // Aqui você pode adicionar a lógica para enviar os dados para o servidor.
+
+                // Exibir notificação
+                showNotification("Nova ordem!");
+
+                // Limpar formulário
+                orderForm.reset();
+            });
+
+            function showNotification(message) {
+                // Verifica se as notificações são suportadas
+                if ('Notification' in window && navigator.serviceWorker) {
+                    Notification.requestPermission().then(function(permission) {
+                        if (permission === 'granted') {
+                            navigator.serviceWorker.ready.then(function(registration) {
+                                registration.showNotification(message);
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
